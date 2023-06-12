@@ -83,7 +83,7 @@ def grid_build(mu=0.0027, b=b):
                         [0.512698987904191, 342.2386621156887]]
                   }
     # points = points_dic[b]
-    points = points_dic[1.0]
+    # points = points_dic[1.0]
 
     # new_x = 0.1
     # new_y = 0.1
@@ -94,15 +94,17 @@ def grid_build(mu=0.0027, b=b):
     x_lists = []
     y_lists = []
 
-    new_y = 500
-    for i in range(1):
+    new_y = 0.1
+    yy = [0.1, 10, 100, 500]
+    for i in range(4):
         new_x = 0
-        for j in range(2):
+        for j in range(4):
             grid.append([new_x, new_y])
-            new_x += 1.0
-        new_y += 500
+            new_x += 0.5
+        # new_y += 200
+        new_y += yy[i]
 
-    grid.append([points[1][0] - 0.1, points[1][1]])
+    # grid.append([points[1][0] - 0.1, points[1][1]])
 
     for point_number in range(len(grid)):
         print(point_number)
@@ -116,30 +118,38 @@ def grid_build(mu=0.0027, b=b):
         result.append(y)
 
     # Нарисуем двумерный график
-    pylab.plot(*result, zorder=1)
-    pylab.scatter([points[0][0], points[1][0]],
+    pylab.plot(*result, zorder=1, linewidth=2)
+    '''pylab.scatter([points[0][0], points[1][0]],
                   [points[0][1], points[1][1]], s=50, zorder=3, color='black')
     pylab.scatter(points[2][0], points[2][1], s=50, zorder=3, edgecolors='black', color='w')
     pylab.annotate('B', xy=(points[0][0], points[0][1]), xytext=(points[0][0] + 0.1, points[0][1] - 50), fontsize=30)
     pylab.annotate('G', xy=(points[1][0], points[1][1]), xytext=(points[1][0] + 0.1, points[1][1] + 10), fontsize=30)
-    pylab.annotate('S', xy=(points[2][0], points[2][1]), xytext=(points[2][0] + 0.1, points[2][1] - 30), fontsize=30)
+    pylab.annotate('S', xy=(points[2][0], points[2][1]), xytext=(points[2][0] + 0.1, points[2][1] - 30), fontsize=30)'''
     pylab.tick_params(axis='both', which='major', labelsize=20)
     pylab.yscale('log')
 
+    pylab.annotate('A', xy=(sigma/delta, 0.001), xytext=(sigma/delta - 0.2, 0.001), fontsize=20)
+
     result = drug_separatrix(b=b)
-    pylab.plot(*result, zorder=1, color='red', linewidth=3, linestyle='dashed')
+    pylab.plot(*result, zorder=1, color='red', linewidth=5, linestyle='dashed')
     pylab.xlim(0, 4)
     # pylab.ylim(0.00001, 500)
+
+    ax = pylab.gca()
+    ax.set_xlabel("x", fontsize=20, color='black')
+    ax.set_ylabel("y", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
 
     # Покажем окно с нарисованным графиком
     pylab.show()
 
 
 if __name__ == "__main__":
-    b_list = [0.2, 0.9, 1.0, 1.2, 1.4]
-    b_list = [1.0]
+    '''b_list = [0.2, 0.9, 1.0, 1.2, 1.4]
+    b_list = [1.4]
     for i in range(len(b_list)):
         print(b_list[i])
-        grid_build(mu=0.0027, b=b_list[i])
+        grid_build(mu=0.0027, b=b_list[i])'''
 
-    # grid_build(mu=0.0027, b=26)
+    grid_build(mu=0.0027, b=1.4)
