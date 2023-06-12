@@ -61,13 +61,16 @@ def probability_plot():
             mu_value = float(text[i])
             mu_list = [float(x) for x in text[i+1].split()]
             p_list = [float(x) for x in text[i+2].split()]
-            pylab.plot(mu_list, p_list, marker='o', label=f'mu = {mu_value}')
+            pylab.plot(mu_list, p_list, marker='o', label=r'$\mu$' + f'= {mu_value}', linewidth=2)
             i += 3
 
     pylab.tick_params(axis='both', which='major', labelsize=20)
     pylab.xscale('log')
-    pylab.xlabel('epsilon', fontsize=20)
-    pylab.ylabel('probability', fontsize=20)
+    ax = pylab.gca()
+    ax.set_xlabel(r'$\epsilon$', fontsize=20, color='black')
+    ax.set_ylabel("P", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.98)
     pylab.legend(fontsize=15)
     pylab.xlim(0.000005, 0.008)
 
