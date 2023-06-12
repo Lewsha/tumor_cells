@@ -116,10 +116,17 @@ def noise_activity(x, y, mu, epsilon, P):
 
 def points_in_ellipse(x, y, mu, epsilon, P):
     points = resting_points_calc(mu=mu)
-    x_list1, y_list1 = runge_cutt_noise((x, y), mu=mu, points_count=500000, epsilon=epsilon, h=0.01)
+    x_list1, y_list1 = runge_cutt_noise((x, y), mu=mu, points_count=50000, epsilon=epsilon, h=0.01)
     ellips = trust_ellipse(x, y, x ** 2 * y ** 2, 0, P, epsilon=epsilon, mu=mu)
-    pylab.plot(ellips[0], ellips[1], zorder=1)
+    pylab.plot(ellips[0], ellips[1], zorder=1, linewidth=3)
     pylab.tick_params(axis='both', which='major', labelsize=20)
+
+    ax = pylab.gca()
+    ax.set_xlabel("x", fontsize=20, color='black')
+    ax.set_ylabel("y", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
+
     res = [[], []]
     for i in range(0, len(x_list1), 100):
         res[0].append(x_list1[i])
@@ -134,23 +141,31 @@ def ellipses(x, y, epsilon1, epsilon2, P, mu=mu):
     ellips1 = trust_ellipse(x, y, x**2 * y**2, 0, P, epsilon=epsilon1, mu=mu)
     ellips2 = trust_ellipse(x, y, x**2 * y**2, 0, P, epsilon=epsilon2, mu=mu)
     sep = separatrix(mu=mu)
-    pylab.plot(*sep, color='red', zorder=1, linewidth=2, linestyle='dashed')
-    pylab.plot(*ellips1, color='dimgray', zorder=1)
-    pylab.plot(*ellips2, color='brown', zorder=1)
+    pylab.plot(*sep, color='red', zorder=1, linewidth=5, linestyle='dashed')
+    pylab.plot(*ellips1, color='dimgray', zorder=1, linewidth=2)
+    pylab.plot(*ellips2, color='brown', zorder=1, linewidth=2)
     pylab.scatter(points[2][0], points[2][1], s=50, zorder=2, edgecolors='black', color='w')
     pylab.scatter(x, y, s=50, zorder=2, edgecolors='black', color='black')
-    pylab.annotate('S', xy=(points[2][0], points[2][1]), xytext=(points[2][0]+0.1, points[2][1]-30), fontsize=30)
-    pylab.annotate('B', xy=(x, y), xytext=(x+0.05, y+2), fontsize=30)
+    pylab.annotate('S', xy=(points[2][0], points[2][1]), xytext=(points[2][0]+0.025, points[2][1]-10), fontsize=30)
+    pylab.annotate('B', xy=(x, y), xytext=(x+0.015, y+2), fontsize=30)
     pylab.yscale('log')
     pylab.xlim(0, 1.5)
     pylab.ylim(200, 500)
     pylab.tick_params(axis='both', which='major', labelsize=20)
+
+    ax = pylab.gca()
+    ax.set_xlabel("x", fontsize=20, color='black')
+    ax.set_ylabel("y", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
+
     pylab.show()
 
 
 if __name__ == "__main__":
     points = resting_points_calc(mu=0.0027)
+    # points_in_ellipse(points[1][0], points[1][1], 0.00311, 0.01, 0.95)
     # noise_activity_diagram()
-    # print(points)
+    print(points)
     # noise_activity(points[1][0], points[1][1], 0.005, 0.01, 0.95)
     ellipses(points[0][0], points[0][1], 0.0001, 0.0005, 0.99, mu=0.0027)
