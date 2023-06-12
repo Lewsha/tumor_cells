@@ -1,6 +1,6 @@
 from main_functions import *
 import numpy
-from scipy.special import cbrt
+# from scipy.special import cbrt
 import pylab
 from numpy.linalg import eig
 import resting_points_calculation
@@ -53,18 +53,27 @@ def figure2():
     mu_list_separ = mu_list[17:125]
     y_list_separ = y_list_separ[17:125]
 
-    pylab.plot(mu_list_bad, y_list_bad, color='red', linewidth=2)
-    pylab.plot(mu_list_good, y_list_good, color='blue', linewidth=2)
-    pylab.plot(mu_list_separ, y_list_separ, color='black', linewidth=2, linestyle='dashed')
-    pylab.plot([0.002633, 0.002633], [0, y_list_bad[0]], color='gray', linestyle='dashed')
-    pylab.plot([0.01323, 0.01323], [0, y_list_good[-1]], color='gray', linestyle='dashed')
+    pylab.plot(mu_list_bad, y_list_bad, color='red', linewidth=3)
+    pylab.plot(mu_list_good, y_list_good, color='blue', linewidth=3)
+    pylab.plot(mu_list_separ, y_list_separ, color='black', linewidth=3, linestyle='dashed')
+    pylab.plot([0.002633, 0.002633], [0, y_list_bad[0]], color='gray', linestyle='dashed', linewidth=2)
+    pylab.plot([0.01323, 0.01323], [0, y_list_good[-1]], color='gray', linestyle='dashed', linewidth=2)
     pylab.tick_params(axis='both', which='major', labelsize=20)
     # pylab.tick_params(axis='x', which='major', labelsize=15)
-    # pylab.xticks([0.002633, 0.005, 0.01, 0.01323, 0.015], ['mu1 = 0.002633', 0.005, 0.01, 'mu2 = 0.01323', 0.015])
-    pylab.xticks([0.005, 0.01, 0.015], [0.005, 0.01, 0.015])
     pylab.yscale('log')
+
+    ax = pylab.gca()
+    ax.set_xlabel(r"$\mu$", fontsize=20, color='black')
+    ax.set_ylabel("y", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
+
+    points = numpy.array([0.002633, 0.005, 0.01, 0.01323, 0.015])
+    labels = [r'$\mu_1$', '0.005', '0.01', r'$\mu_2$', '0.015']
+    pylab.xticks(points, labels)
+
     pylab.xlim(0.0, 0.017)
-    pylab.ylim(0.1, 600)
+    pylab.ylim(5, 600)
     pylab.show()
 
 
