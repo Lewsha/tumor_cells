@@ -87,8 +87,13 @@ def resting_points_change_character():
     характера точки покоя при изменении коэффициента mu в исходном уравнении"""
     mu_list = [0.002633 + i*0.0001 for i in range(105)]
     # mu_list.append(0.01323)
-    # print(mu_list)
-    names = ['bad', 'good', 'separatrix']
+    print(mu_list)
+    names = ['Точка B', 'Точка G', 'Точка S']
+    colors = ['navy', 'forestgreen', 'purple']
+    x1 = mu_list[0]
+    x2 = mu_list[-1]
+    max_y1 = 0
+    max_y2 = 0
     for i in range(0, 2):
         lambda_list1 = []
         lambda_list2 = []
@@ -106,18 +111,37 @@ def resting_points_change_character():
         # print()
         # print()
         # print()
-        # Нарисуем одномерный график
-        pylab.plot(mu_list, lambda_list1, mu_list, lambda_list2, label='{} point'.format(names[i]))
+        pylab.plot(mu_list, lambda_list1, mu_list, lambda_list2, label='{}'.format(names[i]), color=colors[i],
+                   linewidth=3)
         pylab.legend()
+
+        max_y1 = max(max_y1, lambda_list1[0], lambda_list2[0])
+        max_y2 = max(max_y2, lambda_list1[-1], lambda_list2[-1])
+
     pylab.tick_params(axis='both', which='major', labelsize=20)
     pylab.yscale('log')
+    pylab.xlim(0.002, 0.0139)
+
+    pylab.plot([x1, x1], [0, max_y1], color='gray', linestyle='dashed', linewidth=2)
+    pylab.plot([x2, x2], [0, max_y2], color='gray', linestyle='dashed', linewidth=2)
+
+    ax = pylab.gca()
+    ax.set_xlabel(r"$\mu$", fontsize=20, color='black')
+    ax.set_ylabel(r"$\lambda$", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
+
+    points = numpy.array([mu_list[0], 0.004, 0.006, 0.008, 0.01, 0.012, mu_list[-1]])
+    labels = [r'$\mu_1$', '0.004', '0.006', '0.008', '0.01', '0.012', r'$\mu_2$']
+    pylab.xticks(points, labels)
+
     # Покажем окно с нарисованным графиком
     pylab.show()
 
 
 if __name__ == '__main__':
-    resting_points = resting_points_calc(mu=0.00311)
-    print(resting_points)
+    # resting_points = resting_points_calc(mu=0.00311)
+    # print(resting_points)
     # print(resting_points_analysis(resting_points[2][0], resting_points[2][1], mu=0.00311))
     # print(roots_of_quadratic_equation(1, 7, 12))
     """for point in resting_points:
@@ -129,6 +153,6 @@ if __name__ == '__main__':
         print(resting_points_analysis(point[0], point[1], mu=0.01))
     print()"""
 
-    # resting_points_change_character()
+    resting_points_change_character()
 
 
