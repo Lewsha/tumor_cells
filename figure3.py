@@ -24,7 +24,14 @@ def figure_3():
         result.append(x)
         result.append(y)
 
-    pylab.plot(*result)
+    pylab.plot(*result, linewidth=2)
+
+    ax = pylab.gca()
+    ax.set_xlabel("x", fontsize=20, color='black')
+    ax.set_ylabel("y", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
+
     pylab.tick_params(axis='both', which='major', labelsize=20)
     pylab.yscale('log')
     pylab.xlim(0.0, 3.5)
@@ -46,10 +53,25 @@ def figure_3():
         result.append(x)
         result.append(y)
 
-    pylab.plot(*result)
+    pylab.plot(*result, linewidth=2)
+
+    ax = pylab.gca()
+    ax.set_xlabel("x", fontsize=20, color='black')
+    ax.set_ylabel("y", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
+
     result = separatrix(mu=0.0027)
-    pylab.plot(*result, zorder=1, color='red', linewidth=2, linestyle='dashed')
-    pylab.scatter(0.5208856335983751, 340.8051242058756, s=20, zorder=2, edgecolors='black', color='w')
+    pylab.plot(*result, zorder=1, color='red', linewidth=5, linestyle='dashed')
+    pylab.scatter(0.5208856335983751, 340.8051242058756, s=50, zorder=2, edgecolors='black', color='w')
+
+    points = resting_points_calc(mu=0.0027)
+    pylab.scatter(points[0][0], points[0][1], s=20, zorder=2, color='black')
+    pylab.scatter(points[1][0], points[1][1], s=20, zorder=2, color='black')
+    pylab.annotate('B', xy=(points[0][0], points[0][1]), xytext=(points[0][0] + 0.1, points[0][1] - 10), fontsize=30)
+    pylab.annotate('S', xy=(points[2][0], points[2][1]), xytext=(points[2][0] + 0.1, points[2][1] - 10), fontsize=30)
+    pylab.annotate('G', xy=(points[1][0], points[1][1]), xytext=(points[1][0] + 0.1, points[1][1] + 5), fontsize=30)
+
     pylab.tick_params(axis='both', which='major', labelsize=20)
     pylab.yscale('log')
     pylab.xlim(0.0, 3.5)
@@ -71,10 +93,17 @@ def figure_3():
         result.append(x)
         result.append(y)
 
-    pylab.plot(*result)
+    pylab.plot(*result, linewidth=2)
+
+    ax = pylab.gca()
+    ax.set_xlabel("x", fontsize=20, color='black')
+    ax.set_ylabel("y", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
+
     result = separatrix(mu=0.005)
-    pylab.plot(*result, zorder=1, color='red', linewidth=2, linestyle='dashed')
-    pylab.scatter(1.1656679694642182, 143.74450810995776, s=20, zorder=2, edgecolors='black', color='w')
+    pylab.plot(*result, zorder=1, color='red', linewidth=5, linestyle='dashed')
+    pylab.scatter(1.1656679694642182, 143.74450810995776, s=50, zorder=2, edgecolors='black', color='w')
     pylab.tick_params(axis='both', which='major', labelsize=20)
     pylab.yscale('log')
     pylab.xlim(0.0, 3.2)
@@ -95,10 +124,17 @@ def figure_3():
         result.append(x)
         result.append(y)
 
-    pylab.plot(*result)
+    pylab.plot(*result, linewidth=2)
+
+    ax = pylab.gca()
+    ax.set_xlabel("x", fontsize=20, color='black')
+    ax.set_ylabel("y", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
+
     result = separatrix(mu=0.008)
-    pylab.plot(*result, zorder=1, color='red', linewidth=2, linestyle='dashed')
-    pylab.scatter(1.389523555054411, 75.32898684156143, s=20, zorder=2, edgecolors='black', color='w')
+    pylab.plot(*result, zorder=1, color='red', linewidth=5, linestyle='dashed')
+    pylab.scatter(1.389523555054411, 75.32898684156143, s=50, zorder=2, edgecolors='black', color='w')
     pylab.tick_params(axis='both', which='major', labelsize=20)
     pylab.yscale('log')
     pylab.xlim(0.0, 3.2)
@@ -119,10 +155,17 @@ def figure_3():
         result.append(x)
         result.append(y)
 
-    pylab.plot(*result)
+    pylab.plot(*result, linewidth=2)
+
+    ax = pylab.gca()
+    ax.set_xlabel("x", fontsize=20, color='black')
+    ax.set_ylabel("y", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
+
     result = separatrix(mu=0.013)
-    pylab.plot(*result, zorder=1, color='red', linewidth=2, linestyle='dashed')
-    pylab.scatter(1.5502109282783596, 26.219153949156567, s=20, zorder=2, edgecolors='black', color='w')
+    pylab.plot(*result, zorder=1, color='red', linewidth=5, linestyle='dashed')
+    pylab.scatter(1.5502109282783596, 26.219153949156567, s=50, zorder=2, edgecolors='black', color='w')
     pylab.tick_params(axis='both', which='major', labelsize=20)
     pylab.yscale('log')
     pylab.xlim(0.0, 2.0)
@@ -143,7 +186,14 @@ def figure_3():
         result.append(x)
         result.append(y)
 
-    pylab.plot(*result)
+    pylab.plot(*result, linewidth=2)
+
+    ax = pylab.gca()
+    ax.set_xlabel("x", fontsize=20, color='black')
+    ax.set_ylabel("y", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
+
     pylab.tick_params(axis='both', which='major', labelsize=20)
     pylab.yscale('log')
     pylab.xlim(0.0, 2.0)
