@@ -45,18 +45,26 @@ def noise_activity_diagram(*args, mu=0.0027, b=0.2, mode=0):
         i = 0
         # print(args)
         for arr in args:
-            pylab.plot(t_list[0:len(arr[1])], arr[1], color=colors[i % 2], label='epsilon = {}'.format(arr[2]))
+            pylab.plot(t_list[0:len(arr[1])], arr[1], color=colors[i % 2], label=r'$\epsilon$ = {}'.format(arr[2]))
             pylab.legend(loc=0, fontsize=20)
             i += 1
     else:
         for epsilon in [0.1, 0.3]:
             result = runge_cutt_noise_drugs([x_start, y_start], points_count=50000, epsilon=epsilon, mu=mu, b=b)
             # Нарисуем одномерный график
-            pylab.plot(t_list, result[1], label='epsilon = {}'.format(epsilon))
+            pylab.plot(t_list, result[1], label=r'$\epsilon$ = {}'.format(epsilon))
             pylab.legend(loc=0, fontsize=20)
 
     # Покажем окно с нарисованным графиком
     pylab.tick_params(axis='both', which='major', labelsize=20)
+    pylab.xlim(0, 4999)
+
+    ax = pylab.gca()
+    ax.set_xlabel("t", fontsize=20, color='black')
+    ax.set_ylabel("y", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
+
     pylab.show()
 
 
@@ -137,6 +145,7 @@ def noise_activity(x, y, mu, b, epsilons, P):
     args = []
     priority = len(epsilons)
     colors = ['darkorange', 'navy']
+    colors_ellips = ['seagreen', 'purple']
     i = 0
     for epsilon in epsilons:
         x_list, y_list = runge_cutt_noise_drugs((x, y), mu=mu, points_count=500000, epsilon=epsilon, h=0.001, b=b)
@@ -144,9 +153,9 @@ def noise_activity(x, y, mu, b, epsilons, P):
         y_list_plot = y_list[::10]
 
         ellips = trust_ellipse(x, y, x ** 2 * y ** 2, 0, P, epsilon=epsilon, mu=mu)
-        pylab.plot(ellips[0], ellips[1], zorder=len(epsilons)+1, color='red')
+        pylab.plot(ellips[0], ellips[1], zorder=len(epsilons)+1, color=colors_ellips[i % 2], linewidth=3)
 
-        pylab.plot(x_list_plot, y_list_plot, color=colors[i % 2], label='epsilon = {}'.format(epsilon), zorder=priority)
+        pylab.plot(x_list_plot, y_list_plot, color=colors[i % 2], label=r'$\epsilon$ = {}'.format(epsilon), zorder=priority)
         priority -= 1
         i += 1
 
@@ -156,15 +165,23 @@ def noise_activity(x, y, mu, b, epsilons, P):
     pylab.legend(loc=0, fontsize=20)
 
     sep = drug_separatrix(b=b)
-    pylab.plot(*sep, color='red', zorder=len(epsilons)+1, linewidth=3, linestyle='dashed')
+    pylab.plot(*sep, color='red', zorder=len(epsilons)+1, linewidth=5, linestyle='dashed')
+    # pylab.plot(*sep, color='forestgreen', zorder=len(epsilons)+1, linewidth=3, linestyle='dashed')
     pylab.scatter([points[0][0], points[1][0]],
                   [points[0][1], points[1][1]], s=50, zorder=len(epsilons)+1, color='black')
     pylab.scatter(points[2][0], points[2][1], s=50, zorder=len(epsilons)+2, edgecolors='black', color='w')
     pylab.annotate('B', xy=(points[0][0], points[0][1]), xytext=(points[0][0]+0.1, points[0][1]-50), fontsize=30)
     pylab.annotate('G', xy=(points[1][0], points[1][1]), xytext=(points[1][0]+0.1, points[1][1]+50), fontsize=30)
     pylab.annotate('S', xy=(points[2][0], points[2][1]), xytext=(points[2][0]+0.1, points[2][1]-30), fontsize=30)
-    pylab.xlim(0, 4)
-    pylab.ylim(0, 600)
+    pylab.xlim(0, 3.99)
+    pylab.ylim(0, 599)
+
+    ax = pylab.gca()
+    ax.set_xlabel("x", fontsize=20, color='black')
+    ax.set_ylabel("y", fontsize=20, color='black', rotation=0)
+    ax.xaxis.set_label_coords(1.005, -0.007)
+    ax.yaxis.set_label_coords(-0.015, 0.95)
+
     # pylab.yscale('log')
     pylab.show()
     noise_activity_diagram(*args, mode=1)
@@ -227,6 +244,14 @@ if __name__ == "__main__":
     # points_in_ellipse(0.2911694704689477, 410.8633654020245, 0.0027, 0.2, 0.001, 0.75)
     # 411.18694698259463, 411.1190070057004, 411.03394574557194
     # 0.2905720486367612, 0.2906972848987737, 0.29085423107043973
-    noise_activity(0.29085423107043973, 411.03394574557194, 0.0027, 1.2, (0.0002, 0.0006), 0.95)
+
+    # noise_activity(0.29085423107043973, 411.03394574557194, 0.0027, 0.1, (0.0002, 0.0006), 0.95)
+    # noise_activity(0.29085423107043973, 411.03394574557194, 0.0027, 0.2, (0.0002, 0.0006), 0.95)
+    # noise_activity(0.29085423107043973, 411.03394574557194, 0.0027, 0.9, (0.0002, 0.0006), 0.95)
+    # noise_activity(0.29085423107043973, 411.03394574557194, 0.0027, 1, (0.0002, 0.0006), 0.95)
+    # noise_activity(0.29085423107043973, 411.03394574557194, 0.0027, 1.2, (0.0002, 0.0006), 0.95)
+
     # ellipses(0.2911694704689477, 410.8633654020245, 0.0005, 0.001, 0.75)
+
+    a = 0
 
